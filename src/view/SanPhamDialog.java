@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class SanPhamDialog extends JDialog {
 
-    private JTextField txtMaSP, txtTenSP, txtMaLoai, txtGiaNhap, txtGiaBan, txtSoLuong, txtDonVi;
+    private JTextField txtMaSP, txtTenSP, txtMaLoai, txtGiaNhap, txtGiaBan, txtDonVi;
     private JSpinner spnHetHan, spnNgayTao, spnNgayCapNhat;
     private boolean isConfirmed = false;
 
@@ -51,12 +51,6 @@ public class SanPhamDialog extends JDialog {
         txtGiaBan = new JTextField();
         txtGiaBan.setBounds(fieldX, y, width, height);
 
-        JLabel lblSoLuong = new JLabel("Số lượng tồn:");
-        y += dy;
-        lblSoLuong.setBounds(labelX, y, 100, height);
-        txtSoLuong = new JTextField();
-        txtSoLuong.setBounds(fieldX, y, width, height);
-
         JLabel lblDonVi = new JLabel("Đơn vị:");
         y += dy;
         lblDonVi.setBounds(labelX, y, 100, height);
@@ -90,13 +84,12 @@ public class SanPhamDialog extends JDialog {
         btnOK.setBounds(100, y, 100, 30);
         btnCancel.setBounds(230, y, 100, 30);
 
-        // add component
+      
         add(lblMaSP); add(txtMaSP);
         add(lblTenSP); add(txtTenSP);
         add(lblMaLoai); add(txtMaLoai);
         add(lblGiaNhap); add(txtGiaNhap);
         add(lblGiaBan); add(txtGiaBan);
-        add(lblSoLuong); add(txtSoLuong);
         add(lblDonVi); add(txtDonVi);
         add(lblHetHan); add(spnHetHan);
         add(lblNgayTao); add(spnNgayTao);
@@ -111,7 +104,6 @@ public class SanPhamDialog extends JDialog {
             txtMaLoai.setText(sanPham.getMaLoaiSP());
             txtGiaNhap.setText(String.valueOf(sanPham.getGiaNhap()));
             txtGiaBan.setText(String.valueOf(sanPham.getGiaBan()));
-            txtSoLuong.setText(String.valueOf(sanPham.getSoLuongTon()));
             txtDonVi.setText(sanPham.getDonVi());
             spnHetHan.setValue(sanPham.getNgayHetHan());
             spnNgayTao.setValue(sanPham.getNgayTao());
@@ -146,7 +138,6 @@ public class SanPhamDialog extends JDialog {
             sp.setMaLoaiSP(txtMaLoai.getText().trim());
             sp.setGiaNhap(Double.parseDouble(txtGiaNhap.getText().trim()));
             sp.setGiaBan(Double.parseDouble(txtGiaBan.getText().trim()));
-            sp.setSoLuongTon(Integer.parseInt(txtSoLuong.getText().trim()));
             sp.setDonVi(txtDonVi.getText().trim());
             sp.setNgayHetHan((Date) spnHetHan.getValue());
             sp.setNgayTao((Date) spnNgayTao.getValue());
