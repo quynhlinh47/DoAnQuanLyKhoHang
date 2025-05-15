@@ -3,17 +3,15 @@ package model;
 public class NhaCungCap {
 	private String maNCC;
 	private String tenNCC;
-	private String nguoiLienHe;
 	private String sdt;
 	private String email;
 	private String diaChi;
 	
 	public NhaCungCap() {}
 	
-	public NhaCungCap(String maNCC, String tenNCC, String nguoiLienHe, String sdt, String email, String diaChi) {
+	public NhaCungCap(String maNCC, String tenNCC, String sdt, String email, String diaChi) {
 		this.maNCC = maNCC;
 		this.tenNCC = tenNCC;
-		this.nguoiLienHe = nguoiLienHe;
 		this.sdt = sdt;
 		this.email = email;
 		this.diaChi = diaChi;
@@ -35,13 +33,6 @@ public class NhaCungCap {
 		this.tenNCC = tenNCC;
 	}
 
-	public String getNguoiLienHe() {
-		return nguoiLienHe;
-	}
-
-	public void setNguoiLienHe(String nguoiLienHe) {
-		this.nguoiLienHe = nguoiLienHe;
-	}
 
 	public String getSdt() {
 		return sdt;
