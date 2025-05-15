@@ -47,7 +47,7 @@ public class SanPhamPanel extends JPanel {
         
         String[] columns = {
             "Mã SP", "Tên SP", "Mã loại SP", "Giá nhập", "Giá bán",
-            "Số lượng tồn", "Đơn vị", "Ngày hết hạn", "Ngày tạo", "Ngày cập nhật"
+           "Đơn vị", "Ngày hết hạn", "Ngày tạo", "Ngày cập nhật"
         };
         tableModel = new DefaultTableModel(columns, 0);
         table = new JTable(tableModel);
@@ -163,7 +163,6 @@ public class SanPhamPanel extends JPanel {
             sp.getMaLoaiSP(),
             sp.getGiaNhap(),
             sp.getGiaBan(),
-            sp.getSoLuongTon(),
             sp.getDonVi(),
             sp.getNgayHetHan(),
             sp.getNgayTao(),
