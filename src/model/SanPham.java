@@ -8,7 +8,6 @@ public class SanPham {
 	private LoaiSanPham loaiSP;
 	private double giaNhap;
 	private double giaBan;
-	private int soLuongTon;
 	private String donVi;
 	private Date ngayHetHan;
 	private Date ngayTao;
@@ -17,14 +16,13 @@ public class SanPham {
 	public SanPham() {
 	}
 
-	public SanPham(String maSP, String tenSP, LoaiSanPham loaiSP, double giaNhap, double giaBan, int soLuongTon,
+	public SanPham(String maSP, String tenSP, LoaiSanPham loaiSP, double giaNhap, double giaBan,
 			String donVi, Date ngayHetHan, Date ngayTao, Date ngayCapNhat) {
 		this.maSP = maSP;
 		this.tenSP = tenSP;
 		this.loaiSP = loaiSP;
 		this.giaNhap = giaNhap;
 		this.giaBan = giaBan;
-		this.soLuongTon = soLuongTon;
 		this.donVi = donVi;
 		this.ngayHetHan = ngayHetHan;
 		this.ngayTao = ngayTao;
@@ -69,14 +67,6 @@ public class SanPham {
 
 	public void setGiaBan(double giaBan) {
 		this.giaBan = giaBan;
-	}
-
-	public int getSoLuongTon() {
-		return soLuongTon;
-	}
-
-	public void setSoLuongTon(int soLuongTon) {
-		this.soLuongTon = soLuongTon;
 	}
 
 	public String getDonVi() {
