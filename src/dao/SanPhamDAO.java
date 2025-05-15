@@ -39,7 +39,7 @@ public class SanPhamDAO {
     }
 
     public boolean insert(SanPham sp) {
-        String sql = "INSERT INTO san_pham(ma_sp, ten_sp, ma_loai_sp, gia_nhap, gia_ban, don_vi, ngay_het_han, ngay_tao, ngay_cap_nhat) "
+        String sql = "INSERT INTO san_pham(ma_san_pham, ten_san_pham, ma_loai_san_pham, gia_nhap, gia_ban, don_vi, ngay_het_han, ngay_tao, ngay_cap_nhat) "
                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = MySQLConnection.getConnection();
@@ -108,7 +108,7 @@ public class SanPhamDAO {
 
     public List<SanPham> findByTenSP(String tenSP) {
         List<SanPham> list = new ArrayList<>();
-        String sql = "SELECT * FROM san_pham WHERE ten_sp LIKE ?";
+        String sql = "SELECT * FROM san_pham WHERE ten_san_pham LIKE ?";
 
         try (Connection conn = MySQLConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -129,7 +129,7 @@ public class SanPhamDAO {
 
     public List<SanPham> findByLoaiSP(String maLoaiSP) {
         List<SanPham> list = new ArrayList<>();
-        String sql = "SELECT * FROM san_pham WHERE ma_loai_sp LIKE ?";
+        String sql = "SELECT * FROM san_pham WHERE ma_loai_san_pham LIKE ?";
 
         try (Connection conn = MySQLConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -149,9 +149,9 @@ public class SanPhamDAO {
     }
     private SanPham mapRow(ResultSet rs) throws SQLException {
         SanPham sp = new SanPham();
-        sp.setMaSP(rs.getString("ma_sp"));
-        sp.setTenSP(rs.getString("ten_sp"));
-        sp.setMaLoaiSP(rs.getString("ma_loai_sp"));
+        sp.setMaSP(rs.getString("ma_san_pham"));
+        sp.setTenSP(rs.getString("ten_san_pham"));
+        sp.setMaLoaiSP(rs.getString("ma_loai_san_pham"));
         sp.setGiaNhap(rs.getDouble("gia_nhap"));
         sp.setGiaBan(rs.getDouble("gia_ban"));
         sp.setDonVi(rs.getString("don_vi"));
