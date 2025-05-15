@@ -23,7 +23,11 @@ public class SanPhamController {
         return dao.delete(maSP);
     }
 
-    public SanPham timTheoMa(String maSP) {
-        return dao.getById(maSP);
+    public List<SanPham> timTheoTen(String tenSP) {
+        return dao.findByTenSP(tenSP);
+    }
+
+    public List<SanPham> timTheoLoai(String maLoaiSP) {
+        return dao.findByLoaiSP(maLoaiSP);
     }
 }
