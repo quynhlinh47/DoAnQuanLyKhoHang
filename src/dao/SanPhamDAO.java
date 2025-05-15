@@ -109,34 +109,59 @@ public class SanPhamDAO {
         return false;
     }
 
-    public SanPham getById(String maSP) {
-        String sql = "SELECT * FROM san_pham WHERE ma_sp=?";
-        SanPham sp = null;
+    public List<SanPham> findByTenSP(String tenSP) {
+        List<SanPham> list = new ArrayList<>();
+        String sql = "SELECT * FROM san_pham WHERE ten_sp LIKE ?";
 
         try (Connection conn = MySQLConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            ps.setString(1, maSP);
+            ps.setString(1, "%" + tenSP + "%");
             ResultSet rs = ps.executeQuery();
 
-            if (rs.next()) {
-                sp = new SanPham();
-                sp.setMaSP(rs.getString("ma_sp"));
-                sp.setTenSP(rs.getString("ten_sp"));
-                sp.setMaLoaiSP(rs.getString("ma_loai_sp"));
-                sp.setGiaNhap(rs.getDouble("gia_nhap"));
-                sp.setGiaBan(rs.getDouble("gia_ban"));
-                sp.setSoLuongTon(rs.getInt("so_luong_ton"));
-                sp.setDonVi(rs.getString("don_vi"));
-                sp.setNgayHetHan(rs.getDate("ngay_het_han"));
-                sp.setNgayTao(rs.getDate("ngay_tao"));
-                sp.setNgayCapNhat(rs.getDate("ngay_cap_nhat"));
+            while (rs.next()) {
+                list.add(mapRow(rs));
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
+        return list;
+    }
+
+    public List<SanPham> findByLoaiSP(String maLoaiSP) {
+        List<SanPham> list = new ArrayList<>();
+        String sql = "SELECT * FROM san_pham WHERE ma_loai_sp LIKE ?";
+
+        try (Connection conn = MySQLConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, "%" + maLoaiSP + "%");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                list.add(mapRow(rs));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+    private SanPham mapRow(ResultSet rs) throws SQLException {
+        SanPham sp = new SanPham();
+        sp.setMaSP(rs.getString("ma_sp"));
+        sp.setTenSP(rs.getString("ten_sp"));
+        sp.setMaLoaiSP(rs.getString("ma_loai_sp"));
+        sp.setGiaNhap(rs.getDouble("gia_nhap"));
+        sp.setGiaBan(rs.getDouble("gia_ban"));
+        sp.setSoLuongTon(rs.getInt("so_luong_ton"));
+        sp.setDonVi(rs.getString("don_vi"));
+        sp.setNgayHetHan(rs.getDate("ngay_het_han"));
+        sp.setNgayTao(rs.getDate("ngay_tao"));
+        sp.setNgayCapNhat(rs.getDate("ngay_cap_nhat"));
         return sp;
     }
 }
