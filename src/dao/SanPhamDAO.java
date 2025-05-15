@@ -23,7 +23,6 @@ public class SanPhamDAO {
                 sp.setMaLoaiSP(rs.getString("ma_loai_san_pham"));
                 sp.setGiaNhap(rs.getDouble("gia_nhap"));
                 sp.setGiaBan(rs.getDouble("gia_ban"));
-                sp.setSoLuongTon(rs.getInt("so_luong_ton"));
                 sp.setDonVi(rs.getString("don_vi"));
                 sp.setNgayHetHan(rs.getDate("ngay_het_han"));
                 sp.setNgayTao(rs.getDate("ngay_tao"));
@@ -40,8 +39,8 @@ public class SanPhamDAO {
     }
 
     public boolean insert(SanPham sp) {
-        String sql = "INSERT INTO san_pham(ma_sp, ten_sp, ma_loai_sp, gia_nhap, gia_ban, so_luong_ton, don_vi, ngay_het_han, ngay_tao, ngay_cap_nhat) "
-                   + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO san_pham(ma_sp, ten_sp, ma_loai_sp, gia_nhap, gia_ban, don_vi, ngay_het_han, ngay_tao, ngay_cap_nhat) "
+                   + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = MySQLConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -51,11 +50,10 @@ public class SanPhamDAO {
             ps.setString(3, sp.getMaLoaiSP());
             ps.setDouble(4, sp.getGiaNhap());
             ps.setDouble(5, sp.getGiaBan());
-            ps.setInt(6, sp.getSoLuongTon());
-            ps.setString(7, sp.getDonVi());
-            ps.setDate(8, new java.sql.Date(sp.getNgayHetHan().getTime()));
-            ps.setDate(9, new java.sql.Date(sp.getNgayTao().getTime()));
-            ps.setDate(10, new java.sql.Date(sp.getNgayCapNhat().getTime()));
+            ps.setString(6, sp.getDonVi());
+            ps.setDate(7, new java.sql.Date(sp.getNgayHetHan().getTime()));
+            ps.setDate(8, new java.sql.Date(sp.getNgayTao().getTime()));
+            ps.setDate(9, new java.sql.Date(sp.getNgayCapNhat().getTime()));
 
             return ps.executeUpdate() > 0;
 
@@ -67,7 +65,7 @@ public class SanPhamDAO {
     }
 
     public boolean update(SanPham sp) {
-        String sql = "UPDATE san_pham SET ten_san_pham=?, ma_loai_san_pham=?, gia_nhap=?, gia_ban=?, so_luong_ton=?, don_vi=?, "
+        String sql = "UPDATE san_pham SET ten_san_pham=?, ma_loai_san_pham=?, gia_nhap=?, gia_ban=?, don_vi=?, "
                    + "ngay_het_han=?, ngay_tao=?, ngay_cap_nhat=? WHERE ma_san_pham=?";
 
         try (Connection conn = MySQLConnection.getConnection();
@@ -77,12 +75,11 @@ public class SanPhamDAO {
             ps.setString(2, sp.getMaLoaiSP());
             ps.setDouble(3, sp.getGiaNhap());
             ps.setDouble(4, sp.getGiaBan());
-            ps.setInt(5, sp.getSoLuongTon());
-            ps.setString(6, sp.getDonVi());
-            ps.setDate(7, new java.sql.Date(sp.getNgayHetHan().getTime()));
-            ps.setDate(8, new java.sql.Date(sp.getNgayTao().getTime()));
-            ps.setDate(9, new java.sql.Date(sp.getNgayCapNhat().getTime()));
-            ps.setString(10, sp.getMaSP());
+            ps.setString(5, sp.getDonVi());
+            ps.setDate(6, new java.sql.Date(sp.getNgayHetHan().getTime()));
+            ps.setDate(7, new java.sql.Date(sp.getNgayTao().getTime()));
+            ps.setDate(8, new java.sql.Date(sp.getNgayCapNhat().getTime()));
+            ps.setString(9, sp.getMaSP());
 
             return ps.executeUpdate() > 0;
 
@@ -157,7 +154,6 @@ public class SanPhamDAO {
         sp.setMaLoaiSP(rs.getString("ma_loai_sp"));
         sp.setGiaNhap(rs.getDouble("gia_nhap"));
         sp.setGiaBan(rs.getDouble("gia_ban"));
-        sp.setSoLuongTon(rs.getInt("so_luong_ton"));
         sp.setDonVi(rs.getString("don_vi"));
         sp.setNgayHetHan(rs.getDate("ngay_het_han"));
         sp.setNgayTao(rs.getDate("ngay_tao"));
