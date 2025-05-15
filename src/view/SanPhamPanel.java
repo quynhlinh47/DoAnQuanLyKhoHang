@@ -1,6 +1,8 @@
 package view;
 
+import controller.LoaiSanPhamController;
 import controller.SanPhamController;
+import model.LoaiSanPham;
 import model.SanPham;
 
 import javax.swing.*;
@@ -14,6 +16,10 @@ public class SanPhamPanel extends JPanel {
     private JTable table;
     private DefaultTableModel tableModel;
     private SanPhamController controller;
+    
+    private JTable tableLoai;
+    private DefaultTableModel modelLoai;
+
 
     private JButton btnThem, btnXoa, btnSua, btnTim;
     private JComboBox<String> cmbTimKiem;
@@ -54,8 +60,50 @@ public class SanPhamPanel extends JPanel {
 
         JScrollPane scrollPane = new JScrollPane(table);
         add(scrollPane, BorderLayout.CENTER);
+        
+        
+        
+        
+        String[] loaiColumns = {"Mã loại SP", "Tên loại SP"};
+        modelLoai = new DefaultTableModel(loaiColumns, 0);
+        tableLoai = new JTable(modelLoai);
+     
+        JPanel bottomPanel = new JPanel(new BorderLayout());
+
+        JScrollPane loaiScrollPane = new JScrollPane(tableLoai);
+        loaiScrollPane.setPreferredSize(new Dimension(0, 100));
+        bottomPanel.add(loaiScrollPane, BorderLayout.CENTER);
+
+      
+     // Panel nhập và nút thao tác loại sản phẩm
+        JPanel panelLoaiRight = new JPanel();
+        panelLoaiRight.setLayout(new BoxLayout(panelLoaiRight, BoxLayout.Y_AXIS));
+        panelLoaiRight.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        JTextField txtMaLoai = new JTextField(20);
+        JTextField txtTenLoai = new JTextField(20);
+        JButton btnThemLoai = new JButton("Thêm Loại");
+        JButton btnSuaLoai = new JButton("Sửa Loại");
+
+        panelLoaiRight.add(new JLabel("Mã loại SP:"));
+        panelLoaiRight.add(txtMaLoai);
+        panelLoaiRight.add(Box.createVerticalStrut(5));
+        panelLoaiRight.add(new JLabel("Tên loại SP:"));
+        panelLoaiRight.add(txtTenLoai);
+        panelLoaiRight.add(Box.createVerticalStrut(10));
+        panelLoaiRight.add(btnThemLoai);
+        panelLoaiRight.add(Box.createVerticalStrut(10));
+        panelLoaiRight.add(btnSuaLoai);
+
+        bottomPanel.add(panelLoaiRight, BorderLayout.EAST);
+
+
+        add(bottomPanel, BorderLayout.SOUTH);
+
 
         loadData();
+        loadLoaiSP();
+
 
         
         
@@ -126,6 +174,51 @@ public class SanPhamPanel extends JPanel {
                 JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm cần sửa.");
             }
         });
+        
+        
+        //
+        btnThemLoai.addActionListener(e -> {
+            String ma = txtMaLoai.getText().trim();
+            String ten = txtTenLoai.getText().trim();
+
+            if (ma.isEmpty() || ten.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ mã và tên loại sản phẩm.");
+                return;
+            }
+
+            LoaiSanPham loai = new LoaiSanPham(ma, ten);
+            if (new LoaiSanPhamController().them(loai)) {
+                JOptionPane.showMessageDialog(this, "Thêm loại sản phẩm thành công!");
+                loadLoaiSP();
+            } else {
+                JOptionPane.showMessageDialog(this, "Thêm thất bại! Có thể mã đã tồn tại.");
+            }
+        });
+
+        btnSuaLoai.addActionListener(e -> {
+            int selected = tableLoai.getSelectedRow();
+            if (selected == -1) {
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn một loại sản phẩm để sửa.");
+                return;
+            }
+
+            String ma = txtMaLoai.getText().trim();
+            String ten = txtTenLoai.getText().trim();
+
+            if (ma.isEmpty() || ten.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ mã và tên loại sản phẩm.");
+                return;
+            }
+
+            LoaiSanPham loai = new LoaiSanPham(ma, ten);
+            if (new LoaiSanPhamController().sua(loai)) {
+                JOptionPane.showMessageDialog(this, "Cập nhật thành công!");
+                loadLoaiSP();
+            } else {
+                JOptionPane.showMessageDialog(this, "Cập nhật thất bại!");
+            }
+        });
+
 
     }
 
@@ -169,4 +262,16 @@ public class SanPhamPanel extends JPanel {
             sp.getNgayCapNhat()
         };
     }
+    
+    private void loadLoaiSP() {
+        modelLoai.setRowCount(0);
+        List<LoaiSanPham> dsLoai = new LoaiSanPhamController().layTatCa();
+        for (LoaiSanPham loai : dsLoai) {
+            modelLoai.addRow(new Object[]{
+                loai.getMaLoaiSP(),
+                loai.getTenLoaiSP()
+            });
+        }
+    }
+
 }
